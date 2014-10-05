@@ -37,7 +37,10 @@
 	<div class="welcome">
 		
 		<h1>Prateek Chandan's Homepage </h1>
-		
+
+	</div>
+	<div>
+		Note : The site is under construction
 	</div>
 </body>
 </html>
