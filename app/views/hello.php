@@ -40,7 +40,7 @@
 
 	</div>
 	<div>
-		Note : The site is under construction
+		Note : The site is under construction. For now visit <a href="http://">this </a>
 	</div>
 </body>
 </html>
