@@ -40,7 +40,7 @@
 
 	</div>
 	<div>
-		Note : The site is under construction. For now visit <a href="http://">this </a>
+		Note : The site is under construction. For now visit <a href="http://www.cse.iitb.ac.in/~prateekchandan">this </a>
 	</div>
 </body>
 </html>
