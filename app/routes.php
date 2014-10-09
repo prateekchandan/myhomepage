@@ -13,5 +13,11 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	$quotes=["Whatever the mind of man can conceive and believe, it can achieve. –Napoleon Hill",
+	"Don't expect, you will never be disappointed -Me",
+	"You miss 100% of the shots you don’t take. –Wayne Gretzky",
+	"Your time is limited, so don’t waste it living someone else’s life. –Steve Jobs"];
+	shuffle($quotes);
+	View::share('quote',$quotes[0]);
+	return View::make('home');
 });
