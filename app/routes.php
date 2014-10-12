@@ -21,3 +21,7 @@ Route::get('/', function()
 	View::share('quote',$quotes[0]);
 	return View::make('home');
 });
+Route::get('/test', function()
+{
+	echo 'hello';
+});
