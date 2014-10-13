@@ -21,3 +21,5 @@ Route::get('/', function()
 	View::share('quote',$quotes[0]);
 	return View::make('home');
 });
+
+Route::get('/how-to-setup-localhost',array('as'=>'write.apache','uses'=>'PageController@apache'));
