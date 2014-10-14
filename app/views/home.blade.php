@@ -654,12 +654,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="text-center project-referal">
-                    <p>
-                        This project is build on a custom made PHP framework.
-                    </p>
-                    <a href="https://github.com/pascalvgemert/resume" class="btn btn-primary" target="_blank">See project on Github</a>
-                </div>
+    
                 <hr>
                 <h3>
                         Languages
@@ -669,7 +664,7 @@
                         <ul class="no-bullets">
                             <li>
                                 <span class="ability-title">
-                                        Dutch (Mother tongue)
+                                        Hindi (Mother tongue)
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -686,7 +681,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        English (Daily use)
+                                        English 
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -707,24 +702,7 @@
                         <ul class="no-bullets">
                             <li>
                                 <span class="ability-title">
-                                        German (Survivable)
-                                    </span>
-                                <span class="ability-score">
-                                        <span class="glyphicon glyphicon-star filled">
-                                        </span>
-                                <span class="glyphicon glyphicon-star filled">
-                                        </span>
-                                <span class="glyphicon glyphicon-star ">
-                                        </span>
-                                <span class="glyphicon glyphicon-star ">
-                                        </span>
-                                <span class="glyphicon glyphicon-star ">
-                                        </span>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="ability-title">
-                                        French (Un petit peu)
+                                        Sanskrit
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -743,7 +721,7 @@
                     </div>
                 </div>
                 <hr>
-                <h3>
+                <!--h3>
                         Tools
                 </h3>
                 <div class="row">
@@ -993,7 +971,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div-->
             </div>
         </div>
         <div id="interests" class="container">
@@ -1027,25 +1005,12 @@
                             Music
                         </h3>
                     <p>
-                        I can listen to music all day. I have a varied taste of music and I listen to it at work, during sports, riding my bike, on the train... I play guitar myself and would love to own a drum-kit some day.
+                        I can listen to music all day. I have a varied taste of music and I listen to it at work, during sports, riding my bike, on the train... I mostly listen old songs of indian artists like rafi , kishore , lata mangeshkar etc
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 left">
-                    <img src="view/images/interests/cats.png" alt="My Cats" width="220" height="220" />
-                </div>
-                <div class="col-md-8 interest-content">
-                    <h3>
-                            My Cats
-                        </h3>
-                    <p>
-                        If you look up my social networks, you'll surely come across one of my cats. Because what is the internet without cats? Nothing, right? And I'm an internet man, so one and one makes two.
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 right">
                     <img src="view/images/interests/sports.png" alt="Sports" width="220" height="220" />
                 </div>
                 <div class="col-md-8 interest-content">
@@ -1053,12 +1018,12 @@
                             Sports
                         </h3>
                     <p>
-                        I couldn't live without sports. In the weekend you will find me riding my mountainbike - just check out my Runkeeper. Once or twice a week, you'll find me in the gym or at the tracks to train my pole vaulting. I just love the adrenaline rush!
+                        I couldn't live without sports. In the weekend you will find me playing basketball - just check out my Runkeeper. Once or twice a week, you'll find me in the gym or at the tracks
                     </p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 left">
+                <div class="col-md-4 right">
                     <img src="view/images/interests/travel.png" alt="Travel" width="220" height="220" />
                 </div>
                 <div class="col-md-8 interest-content">
@@ -1066,7 +1031,7 @@
                             Travel
                         </h3>
                     <p>
-                        When I was 19 I traveled by plane for the first time, and after that I was hooked. I went to the United States twice, Surinam, Greece, Malta, the Canary Islands and more. But as much as I love the sun, I also love going to the Alps for some snowboarding.
+                        I am pretty much enthusiast about travelling. So far I have visited mountains in sikkim , beaches in maharashtra and odisa liki in puri , Goa beahces etc , historical places like ruins of nalanda , shanti stupa in rajgir &amp; sarnath , hill stations like kodaikanal , lovavala , matheran , panchgani , mahabaleshwar and many more. Living in India I feel still I have 90% of the explorations yet to be done. 
                     </p>
                 </div>
             </div>
