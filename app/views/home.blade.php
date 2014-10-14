@@ -1,36 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('template.master')
 
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="content-script-type" content="text/javascript" />
-    <meta http-equiv="content-style-type" content="text/css" />
-    <meta http-equiv="content-language" content="nl" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Prateek Chandan" />
-    <meta name="description" content="I am Prateek Chandan a ninja webdeveloper / creative programmer with good knowledge of front-end technics." />
-    <meta name="keywords" content=", PHP programmer, Web developer, Startup, Interactive CV, Resume, CV, Whoopaa, HRMatches, Sanitairwinkel, Algorithms, PHP, MySQL, OOP" />
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="14 days" />
-    <title>
-        Prateek Chandan - Homepage
-    </title>
-    <!-- Bootstrap core CSS -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet" type="text/css" />
-    <link href="view/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="view/style.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('include/font-awesome/css/font-awesome.min.css')}}">
-    <!--[if lt IE 9]>
-            <script src="/view/js/html5shiv.js">
-            </script>
-            <script src="/view/js/respond.min.js">
-            </script>
-        <![endif]-->
-</head>
-
-<body data-spy="scroll" data-target="#navbar-example">
+@section('page')
     <div id="top" class="jumbotron" data-src="./view/images/window_rain_animation.gif" data-position="bottom right">
         <div class="container">
             <h1>
@@ -291,15 +261,15 @@
             <div id="abilities" class="container">
                 <h2>
                         Abilities
-                    </h2>
+                </h2>
                 <p class="lead">
                     &ldquo;Life without knowledge is death in disguise.&rdquo;
-                    <br /> - Talib Kweli
+                    <br> - Talib Kweli
                 </p>
-                <hr />
+                <hr>
                 <h3>
                         Skills
-                    </h3>
+                </h3>
                 <div class="row">
                     <div class="col-md-6">
                         <ul class="no-bullets">
@@ -690,10 +660,10 @@
                     </p>
                     <a href="https://github.com/pascalvgemert/resume" class="btn btn-primary" target="_blank">See project on Github</a>
                 </div>
-                <hr />
+                <hr>
                 <h3>
                         Languages
-                    </h3>
+                </h3>
                 <div class="row">
                     <div class="col-md-6">
                         <ul class="no-bullets">
@@ -772,10 +742,10 @@
                         </ul>
                     </div>
                 </div>
-                <hr />
+                <hr>
                 <h3>
                         Tools
-                    </h3>
+                </h3>
                 <div class="row">
                     <div class="col-md-6">
                         <ul class="no-bullets">
@@ -1170,14 +1140,5 @@
                 </div>
             </div>
         </div>
-       
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-        </script>
-        <script type="text/javascript" src="view/js/script.js">
-        </script>
-        <script type="text/javascript" src="view/js/bootstrap.min.js">
-        </script>
-</body>
-
-</html>
+    </div>
+@endsection

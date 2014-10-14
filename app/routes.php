@@ -21,7 +21,12 @@ Route::get('/', function()
 	View::share('quote',$quotes[0]);
 	return View::make('home');
 });
+<<<<<<< HEAD
 Route::get('/test', function()
 {
 	echo 'hello';
 });
+=======
+
+Route::get('/how-to-setup-localhost',array('as'=>'write.apache','uses'=>'PageController@apache'));
+>>>>>>> a465f4b888554301fa0a137b61a3fc63e8d2830f
