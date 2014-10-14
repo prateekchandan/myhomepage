@@ -69,6 +69,11 @@
 	            		<code>sudo apt-get install apache2</code><br>
 	            		This will install apache2 on your system. Once you got it installed you can type <a href="http://localhost">http://localhost</a> in your browser to check if you are getting a default apache page
 	            	</li>
+	            	<li>
+	            		<b>Step 5: Install MySQL</b><br>
+	            		<code>sudo apt-get install mysql-server</code><br>
+	            		This will install MYSQL on your system.This will prompt for root password. Don't forget the password you set here. To check if its properly installed type <code>mysql -u root -p</code> on your terminal and see if it works
+	            	</li>
 	            </ul>
 	        </div>
 	    </div>
@@ -79,8 +84,15 @@
 	            	Windows
 	            </h3>
 	            <p>
-	                Windows sucks :P
-	            </p>
+	            	If you are on windows then there are multiple softwares toolkit which provides you all of the requirements into one package
+	            	<br>
+	            	<br>
+	            	<h4><b>XAMPP</b></h4>
+	            	XAMPP Apache + MySQL + PHP + Perl , is the most popular PHP development environment
+	            	<br>
+	            	XAMPP is a completely free, easy to install Apache distribution containing MySQL, PHP, and Perl. The XAMPP open source package has been set up to be incredibly easy to install and to use.
+	            	<br>
+	            	<b>To install :</b> Go to its <a href="https://www.apachefriends.org/index.html" target=_blank>it's official website</a>  click on XAMPP , Download the installer and install it 
 	        </div>
 	        <div class="col-md-4 left">
 	            <img src="{{URL::asset('view/images/writings/windows-logo.png')}}" alt="Algorithms" width="220"
