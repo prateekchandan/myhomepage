@@ -23,3 +23,4 @@ Route::get('/', function()
 });
 
 Route::get('/how-to-setup-localhost',array('as'=>'write.apache','uses'=>'PageController@apache'));
+Route::get('/wd101',array('as'=>'write.wd101','uses'=>'PageController@wd101'));

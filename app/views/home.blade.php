@@ -41,6 +41,9 @@
                     <a href="#experiences">Experiences</a>
                 </li>
                 <li>
+                    <a href="#projects">Projects</a>
+                </li>
+                <li>
                     <a href="#abilities">Abilities</a>
                 </li>
                 <li>
@@ -256,6 +259,75 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="projects" class="container">
+            <h2>
+                Projects Undertaken       
+            </h2>
+            <p class="lead">
+                &ldquo;Protons give an atom its identity, electrons its personality.&rdquo;
+                <br /> - Bill Bryson, A short history of nearly everything
+            </p>
+            <hr />
+            <h3>
+                Course Projects
+            </h3>
+             <div class="experiences">
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                            English to SQL Machine Translation
+                        </h4>
+                        <p class="experience-period">
+                            August 2014 - Present
+                        </p>
+                        <p>
+                            Under Prof P. Bhattacharya
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul>
+                            <li>
+                                Working on various aspects of Natural Language Processing to extract SQL Queries from the natural languge
+                            </li>
+                            <li>
+                                Implemented Rule Based translation and Statistical translation using Moses to test their differences and possibilities and challenges in both
+                            </li>
+                            <li>
+                                Implemented SQL Query checker to check if the query formed is correct
+                            </li>
+                        </ul>
+                        <button class="btn btn-success">See full documentation</button>
+                    </div>
+                </div>
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                                DPS , Bokaro
+                            </h4>
+                        <p class="experience-period">
+                            june 2010 - april 2012
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            <strong>
+                                    11th and 12th ,PCM with C++
+                                </strong>
+                            <span class="hidden-phone">
+                                    Board percentage : 95.8 %
+                                </span>
+                            <span class="experience-details">
+                                    <span class="location">
+                                        <span class="glyphicon glyphicon-map-marker">
+                                        </span> Bokaro , Jharkhand
+                            </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         <div class="background-white">
             <div id="abilities" class="container">
