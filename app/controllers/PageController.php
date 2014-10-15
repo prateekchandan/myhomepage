@@ -14,4 +14,9 @@ class PageController extends BaseController {
 		return View::make('writings.wd101');
 	}
 
+	public function wd101slides()
+	{
+		return View::make('slides.wd101');
+	}
+
 }

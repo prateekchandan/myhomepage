@@ -10,7 +10,7 @@
 	       This session was conducted by me. This page contains the source codes , slides and other resources used in the session
 	    </p>
 	    <p>
-	    	<a class="alert" href="{{URL::asset('Pages/HTML-CSS-workshop')}}">
+	    	<a class="alert" href="{{URL::route('wd101-slides')}}">
 	    		Here are the slides used
 	    	</a>
 	    </p>
