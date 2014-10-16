@@ -66,6 +66,7 @@
 	            	</li>
 	            	<li>
 	            		<b>Step 4: Configure php with apache</b><br>
+	            		<code>sudo apt-get install libapache2-mod-php5</code>
 	            		<code>sudo a2enmod php5</code><br>
 	            		<code>sudo service apache2 restart</code><br>
 	            		After running this type <a href="http://localhost">http://localhost</a> in your browser to check if your php file is running 
