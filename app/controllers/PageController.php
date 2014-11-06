@@ -19,4 +19,9 @@ class PageController extends BaseController {
 		return View::make('slides.wd101');
 	}
 
+	public function nlp()
+	{
+		return View::make('slides.nlp');
+	}
+
 }
