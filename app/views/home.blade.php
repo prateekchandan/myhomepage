@@ -1171,6 +1171,16 @@
                 <div class="row">
                 <img src="https://maps.googleapis.com/maps/api/staticmap?center=19.131712,72.91764&zoom=15&size=800x300" style="width:100%">
                 </div>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- New Add -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9539937655115229"
+                     data-ad-slot="8864913199"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
                 <hr>
                 <div class="row">
                 	<center>&copy; Prateek Chandan. Last updated on 10th October, 2014</center>
