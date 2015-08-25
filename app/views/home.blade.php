@@ -297,33 +297,7 @@
                                 Implemented SQL Query checker to check if the query formed is correct
                             </li>
                         </ul>
-                        <button class="btn btn-success">See full documentation</button>
-                    </div>
-                </div>
-                <div class="experience row">
-                    <div class="col-md-4">
-                        <h4>
-                                DPS , Bokaro
-                            </h4>
-                        <p class="experience-period">
-                            june 2010 - april 2012
-                        </p>
-                    </div>
-                    <div class="col-md-8">
-                        <p>
-                            <strong>
-                                    11th and 12th ,PCM with C++
-                                </strong>
-                            <span class="hidden-phone">
-                                    Board percentage : 95.8 %
-                                </span>
-                            <span class="experience-details">
-                                    <span class="location">
-                                        <span class="glyphicon glyphicon-map-marker">
-                                        </span> Bokaro , Jharkhand
-                            </span>
-                            </span>
-                        </p>
+                        <a href="{{URL::Route('cs626')}}" target="_blank" class="btn btn-success">See full documentation</a>
                     </div>
                 </div>
             </div>
@@ -347,7 +321,7 @@
                         <ul class="no-bullets">
                             <li>
                                 <span class="ability-title">
-                                        CSS
+                                        C/C++
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -517,7 +491,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        LESS
+                                        Latex
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
