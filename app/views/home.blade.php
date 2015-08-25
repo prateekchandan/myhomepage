@@ -76,7 +76,7 @@
                     </p>
                 </div>
                 <div class="col-md-4 text-center">
-                    <img src="view/images/pascal_van_gemert.png" alt="Pascal van Gemert" width="246" height="246" />
+                    <img src="view/images/prateek.png" alt="Prateek Chandan" width="246" height="246" />
                     <br>
                     <a class = "btn btn-success" href="{{URL::asset('docs/resume.pdf')}}">See My Resume</a>
                 </div>
@@ -358,7 +358,75 @@
             <h3>
                 Course Projects
             </h3>
-             <div class="experiences">
+            <div class="experiences">
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                            QuizApp Server - R&amp;D Project
+                        </h4>
+                        <p class="experience-period">
+                            January 2015 - April 2015
+                        </p>
+                        <p>
+                            Guide : Prof. Bhaskaran Raman
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul>
+                            <li>
+                                Designed a Web Application and REST Framework APIs for an App to conduct in class quiz with proper security mechanisms. Platform - PHP with MVC Framework Laravel 
+                            </li>
+                            <li>
+                                Worked on various security aspects, created a custom symbol font for passcode authentication, properLDAP Authentication, maintainence of states and logging all student event
+                            </li>
+                        </ul>
+                        <span class="experience-details">
+                                    <span class="location">
+                                        <i class="fa fa-github fa-lg"></i> 
+                                        <a href="https://github.com/prateekchandan/Arkenstone-quizapp-server" target="_blank">Check Source Code</a>
+                            </span>
+                            <span class="seperator">
+                                        |
+                                    </span>
+                            <span class="link">
+                                        <span class="glyphicon glyphicon-link">
+                                        </span>
+                            <a href="http://bodhitree3.cse.iitb.ac.in:8080/" target="_blank">See Live Site</a>
+                            </span>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                            Web Based Remote Desktop Connection 
+                        </h4>
+                        <p class="experience-period">
+                            August 2014 - November 2014
+                        </p>
+                        <p>
+                            Guide : Prof. Varsha Apte
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul>
+                            <li>
+                               Implemented a server client program using Websockets to implement a remote desktop connection
+                            </li>
+                            <li>
+                                Authentication system and Auto Load balancing was a part of this project
+                            </li>
+                        </ul>
+                        <span class="experience-details">
+                                    <span class="location">
+                                        <i class="fa fa-github fa-lg"></i> 
+                                        <a href="https://github.com/prateekchandan/Remote-Desktop-Connection" target="_blank">Check Source Code</a>
+                                </span>
+                        </span>
+                    </div>
+                </div>
+
                 <div class="experience row">
                     <div class="col-md-4">
                         <h4>
@@ -374,7 +442,7 @@
                     <div class="col-md-8">
                         <ul>
                             <li>
-                                Working on various aspects of Natural Language Processing to extract SQL Queries from the natural languge
+                                Workied on various aspects of Natural Language Processing to extract SQL Queries from the natural languge
                             </li>
                             <li>
                                 Implemented Rule Based translation and Statistical translation using Moses to test their differences and possibilities and challenges in both
@@ -395,6 +463,92 @@
                                         <span class="glyphicon glyphicon-link">
                                         </span>
                             <a href="{{URL::Route('cs626')}}" target="_blank">See Presentation</a>
+                            </span>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                            Transformer Modelling in OpenGL C++
+                        </h4>
+                        <p class="experience-period">
+                            August 2014 - November 2014
+                        </p>
+                        <p>
+                            Guide : Prof. Parag Chaudhuri
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul>
+                            <li>
+                                Built a model of transformer in OpenGL C++ along with interactive keyboard controls
+                            </li>
+                            <li>
+                                Created 3D environment and made a short movie using key-frame interpolation
+                            </li>
+                        </ul>
+                        <span class="experience-details">
+                                    <span class="location">
+                                        <i class="fa fa-github fa-lg"></i> 
+                                        <a href="https://github.com/prateekchandan/cs475" target="_blank">Check Source Code</a>
+                            </span>
+                            <span class="seperator">
+                                        |
+                                    </span>
+                            <span class="link">
+                                        <span class="glyphicon glyphicon-link">
+                                        </span>
+                            <a href="https://www.youtube.com/watch?v=U52283hqNVs" target="_blank">See Video</a>
+                            </span>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                            Voice Controlled Bot and Biped
+                        </h4>
+                        <p class="experience-period">
+                            April 2014 - May 2014
+                        <p>
+                            Institute Technical Summer Projects
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul>
+                            <li>
+                                Implemented Hidden Markov Model for the voice processing module. Coded in MATLAB involved
+algorithms like Viterbi and Forward-backward algorithm
+                            </li>
+                            <li>
+                                Built a self-designed Remote controlled car and a Biped Bot to work from voice commands
+                            </li>
+                        </ul>
+                        <span class="experience-details">
+                                    <span class="location">
+                                        <i class="fa fa-github fa-lg"></i> 
+                                        <a href="https://github.com/prateekchandan/Voice-Controlled-Biped-Bot" target="_blank">Check Source Code</a>
+                            </span>
+                            <span class="seperator">
+                                        |
+                                    </span>
+                            <span class="link">
+                                        <span class="glyphicon glyphicon-link">
+                                        </span>
+                            <a href="https://www.youtube.com/watch?v=CA1eNgIwgEY" target="_blank">See Video1</a> or
+                            <a href="https://www.youtube.com/watch?v=TqDJe8RzJvM" target="_blank">Video2</a>
+
+                            </span>
+
+                            <span class="seperator">
+                                        |
+                                    </span>
+                            <span class="link">
+                            <i class="fa fa-book"></i>
+                            <a href="http://www.stab-iitb.org/wiki/1RE22_Voice_Controlled_Bot" target="_blank">Read Ducumentation</a>
                             </span>
                             </span>
                     </div>
@@ -1237,7 +1391,7 @@
                 		<b>Phone:</b>
                 	</div>
                 	<div class="col-md-6">
-                		Please mail me to get my number
+                		Please <a style="display:inline" href="mailto:prateekchandan5545@gmail.com">mail me</a> to get my number
                 	</div>
                 </div>
                 <hr>
@@ -1256,7 +1410,7 @@
                 </script>
                 <hr>
                 <div class="row">
-                	<center>&copy; Prateek Chandan. Last updated on 10th October, 2014</center>
+                	<center>&copy; Prateek Chandan. Last updated on 2nd August, 2015</center>
                 </div>
             </div>
         </div>
