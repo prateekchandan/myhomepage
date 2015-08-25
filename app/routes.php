@@ -25,5 +25,6 @@ Route::get('/', function()
 Route::get('/how-to-setup-localhost',array('as'=>'write.apache','uses'=>'PageController@apache'));
 Route::get('/wd101',array('as'=>'write.wd101','uses'=>'PageController@wd101'));
 Route::get('/wd101-slides',array('as'=>'wd101-slides','uses'=>'PageController@wd101slides'));
+Route::get('/sudoku',array('as'=>'sudoku','uses'=>'PageController@sudoku'));
 
 Route::get('/english-to-sql',array('as'=>'cs626','uses'=>'PageController@nlp'));

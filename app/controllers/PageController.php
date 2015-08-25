@@ -24,4 +24,9 @@ class PageController extends BaseController {
 		return View::make('slides.nlp');
 	}
 
+	public function sudoku()
+	{
+		return View::make('other.sudoku');
+	}
+
 }
