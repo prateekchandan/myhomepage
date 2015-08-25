@@ -101,11 +101,11 @@ border-radius: 50%;
 border: 10px solid rgba(219, 218, 218, 0.71);
 }
 	
-#experiences .experience { margin-bottom: 20px; }
-#experiences .experience p > strong { display: block; padding-top: 8px; margin-bottom: 10px; }
-#experiences .experience .experience-details { display: block; margin-top: 6px; }
-#experiences .experience .experience-details * { color: #22A39F; }
-#experiences .experience .experience-details .seperator { color: #BCBCBC; }
+.experience { margin-bottom: 20px; }
+.experience p > strong { display: block; padding-top: 8px; margin-bottom: 10px; }
+ .experience .experience-details { display: block; margin-top: 6px; }
+.experience .experience-details * { color: #22A39F; }
+ .experience .experience-details .seperator { color: #BCBCBC; }
 
 #abilities ul > li { min-height: 30px; padding: 3px 0px; }
 #abilities ul > li:hover { background: #F2F2F2; }

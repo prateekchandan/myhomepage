@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Prateek Chandan" />
     <meta name="description" content="I am Prateek Chandan a ninja webdeveloper / creative programmer with good knowledge of front-end technics." />
-    <meta name="keywords" content=", PHP programmer, Web developer, Startup, Interactive CV, Resume, CV, Whoopaa, HRMatches, Sanitairwinkel, Algorithms, PHP, MySQL, OOP" />
+    <meta name="keywords" content="C++ Programmer , Prolog Programmer, PHP programmer, Web developer, Startup, Pickup , Infermap , IIT Bombay, Algorithms, PHP, MySQL, OOP,Prateek Chandan" />
     <meta name="robots" content="index, follow" />
     <meta name="revisit-after" content="14 days" />
     <title>

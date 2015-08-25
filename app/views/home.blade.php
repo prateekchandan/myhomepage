@@ -62,7 +62,7 @@
                     Profile
                 </h2>
             <p class="lead">
-                I&#039;m a Computer Science 3rd Year Under Graduate at
+                I&#039;m a Computer Science 4th Year Under Graduate at
                 <a href="http://www.iitb.ac.in">IIT Bombay</a>
             </p>
             <hr />
@@ -72,11 +72,13 @@
                             About me
                         </h3>
                     <p>
-                        I am an allround web developer. I am a senior programmer with good knowledge of front-end techniques. I love structure and order and I also stand for quality. I love spending time on fixing little details and optimizing web apps. Also I like working in a team, you'll learn faster and more. As the saying goes: 'two heads are better than one'.
+                        I am an all round web developer. I am a senior programmer with good knowledge of front-end techniques. I love structure and order and I also stand for quality. I love spending time on fixing little details and optimizing web apps. Also I like working in a team, you'll learn faster and more. As the saying goes: 'two heads are better than one'.
                     </p>
                 </div>
                 <div class="col-md-4 text-center">
                     <img src="view/images/pascal_van_gemert.png" alt="Pascal van Gemert" width="246" height="246" />
+                    <br>
+                    <a class = "btn btn-success" href="{{URL::asset('docs/resume.pdf')}}">See My Resume</a>
                 </div>
                 <div class="col-md-4">
                     <h3>
@@ -132,13 +134,20 @@
                                     B.Tech , Computer Science and Engineering
                                 </strong>
                             <span class="hidden-phone">
-                                    Current CPI : 8.67
+                                    Current CPI : 8.63
                                 </span>
                             <span class="experience-details">
                                     <span class="location">
                                         <span class="glyphicon glyphicon-map-marker">
-                                        </span> Powai ,Mumbai
-                            </span>
+                                    </span> Powai ,Mumbai
+                                     <span class="seperator">
+                                        |
+                                    </span>
+                                    <span class="link">
+                                                <span class="glyphicon glyphicon-link">
+                                                </span>
+                                    <a href="http://www.iitb.ac.in/" target="_blank">http://www.iitb.ac.in/</a>
+                                    </span>
                             </span>
                         </p>
                     </div>
@@ -147,7 +156,7 @@
                     <div class="col-md-4">
                         <h4>
                                 DPS , Bokaro
-                            </h4>
+                        </h4>
                         <p class="experience-period">
                             june 2010 - april 2012
                         </p>
@@ -164,7 +173,52 @@
                                     <span class="location">
                                         <span class="glyphicon glyphicon-map-marker">
                                         </span> Bokaro , Jharkhand
+
+                                    </span>
+                                     <span class="seperator">
+                                        |
+                                    </span>
+                                    <span class="link">
+                                                <span class="glyphicon glyphicon-link">
+                                                </span>
+                                    <a href="http://dpsbokaro.com/" target="_blank">http://dpsbokaro.com/</a>
+                                    </span>
                             </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
+                                Sainik School Tialiya
+                        </h4>
+                        <p class="experience-period">
+                            april 2005 - April 2012
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            <strong>
+                                    Schooling from 5th - 10th
+                                </strong>
+                            <span class="hidden-phone">
+                                    Board CGPA : 9.6
+                            </span>
+                            <span class="experience-details">
+                                    <span class="location">
+                                        <span class="glyphicon glyphicon-map-marker">
+                                        </span> Jhumri Tilaiya , Koderma
+
+                                    </span>
+                                     <span class="seperator">
+                                        |
+                                    </span>
+                                    <span class="link">
+                                                <span class="glyphicon glyphicon-link">
+                                                </span>
+                                    <a href="http://www.sainikschooltilaiya.org/" target="_blank">http://www.sainikschooltilaiya.org/</a>
+                                    </span>
                             </span>
                         </p>
                     </div>
@@ -178,10 +232,45 @@
                 <div class="experience row">
                     <div class="col-md-4">
                         <h4>
+                                <a href="http://www.infermap.com" style="color:#333">Microsoft</a>
+                            </h4>
+                        <p class="experience-period">
+                            March 2015 - July 2015
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            <strong>
+                                    Software Developer - Summer Intern
+                                </strong>
+                            <span class="hidden-phone">
+                                    Worked on an Application "<b>Checkmark - Correction App For Teachers</b>" as a part of Microsoft's One Inida Education Initiaitive.
+                                    Worked intensively on android canvas , bitmaps and memory amangement in android
+                                </span>
+                            <span class="experience-details">
+                                    <span class="location">
+                                        <span class="glyphicon glyphicon-map-marker">
+                                        </span> IDC Hyderabad , India
+                            </span>
+                            <span class="seperator">
+                                        |
+                                    </span>
+                            <span class="link">
+                                        <span class="glyphicon glyphicon-link">
+                                        </span>
+                            <a href="https://www.microsoft.com/en-in/msidc/" target="_blank">Microsoft India Development Center</a>
+                            </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="experience row">
+                    <div class="col-md-4">
+                        <h4>
                                 <a href="http://www.infermap.com" style="color:#333">Infermap</a>
                             </h4>
                         <p class="experience-period">
-                            Nov 2013 - current
+                            Nov 2013 - December 2014
                         </p>
                     </div>
                     <div class="col-md-8">
@@ -194,10 +283,7 @@
                                     process, based on individual resources and requirements.Inspired by a belief
                                     that all students deserve access to good guidance, infermap aims to create
                                     the interactive tools and media that guide students as they find, afford
-                                    and enroll in a college that’s a good fit for them. I developed an own
-                                    framework, which I improved in user experience and speed after the big
-                                    idea change. I also developed the real time match algorithm as well as
-                                    a lot of other helpful algorithms. Whoopaa is my current full-time job.
+                                    and enroll in a college that’s a good fit for them.
                                 </span>
                             <span class="experience-details">
                                     <span class="location">
@@ -244,7 +330,7 @@
                             <span class="experience-details">
                                     <span class="location">
                                         <span class="glyphicon glyphicon-map-marker">
-                                        </span> IIT Bombay
+                                        </span> Andheri , Bombay
                             </span>
                             <span class="seperator">
                                         |
@@ -252,7 +338,7 @@
                             <span class="link">
                                         <span class="glyphicon glyphicon-link">
                                         </span>
-                            <a href="http://www.shezartech.com/prateek/elearning/" target="_blank">http://www.shezartech.com/prateek/elearning/</a>
+                            <a href="https://iitjeeacademy.com/" target="_blank">https://iitjeeacademy.com/</a>
                             </span>
                             </span>
                         </p>
@@ -279,10 +365,10 @@
                             English to SQL Machine Translation
                         </h4>
                         <p class="experience-period">
-                            August 2014 - Present
+                            August 2014 - November 2014
                         </p>
                         <p>
-                            Under Prof P. Bhattacharya
+                            Guide : Prof P. Bhattacharya
                         </p>
                     </div>
                     <div class="col-md-8">
@@ -297,35 +383,23 @@
                                 Implemented SQL Query checker to check if the query formed is correct
                             </li>
                         </ul>
-                        <button class="btn btn-success">See full documentation</button>
-                    </div>
-                </div>
-                <div class="experience row">
-                    <div class="col-md-4">
-                        <h4>
-                                DPS , Bokaro
-                            </h4>
-                        <p class="experience-period">
-                            june 2010 - april 2012
-                        </p>
-                    </div>
-                    <div class="col-md-8">
-                        <p>
-                            <strong>
-                                    11th and 12th ,PCM with C++
-                                </strong>
-                            <span class="hidden-phone">
-                                    Board percentage : 95.8 %
-                                </span>
-                            <span class="experience-details">
+                        <span class="experience-details">
                                     <span class="location">
-                                        <span class="glyphicon glyphicon-map-marker">
-                                        </span> Bokaro , Jharkhand
+                                        <i class="fa fa-github fa-lg"></i> 
+                                        <a href="https://github.com/shyamjvs/cs626_project" target="_blank">Check Source Code</a>
+                            </span>
+                            <span class="seperator">
+                                        |
+                                    </span>
+                            <span class="link">
+                                        <span class="glyphicon glyphicon-link">
+                                        </span>
+                            <a href="{{URL::Route('cs626')}}" target="_blank">See Presentation</a>
                             </span>
                             </span>
-                        </p>
                     </div>
                 </div>
+               
             </div>
             
         </div>
@@ -347,7 +421,7 @@
                         <ul class="no-bullets">
                             <li>
                                 <span class="ability-title">
-                                        CSS
+                                        C
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -364,7 +438,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        HTML
+                                        C++
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -432,7 +506,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        XML
+                                        Android
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -517,7 +591,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        LESS
+                                        Python
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -538,7 +612,7 @@
                         <ul class="no-bullets">
                             <li>
                                 <span class="ability-title">
-                                        MVC Pattern
+                                        Laravel
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -555,7 +629,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        Method factory Pattern
+                                        Scheme / Lisp
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -589,7 +663,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        SASS
+                                        HTML5
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -606,7 +680,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        SEO
+                                        Arduino
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -623,7 +697,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        Singleton Pattern
+                                        CSS3
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -640,7 +714,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        UML
+                                        AJAX
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -674,7 +748,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        Command line
+                                        BASH
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -691,7 +765,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        AngularJS
+                                        Latex
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -708,7 +782,7 @@
                             </li>
                             <li>
                                 <span class="ability-title">
-                                        Ruby
+                                       Prolog
                                     </span>
                                 <span class="ability-score">
                                         <span class="glyphicon glyphicon-star filled">
@@ -1152,7 +1226,6 @@
                 	</div>
                 	<div class="col-md-6">
                 		<address>
-						Room No : 178 <br>
 						Hostel 9<br>
 						IIT Bombay , Powai<br>
 						Mumbai - 400076
@@ -1164,12 +1237,12 @@
                 		<b>Phone:</b>
                 	</div>
                 	<div class="col-md-6">
-                		+91 9619730024
+                		Please mail me to get my number
                 	</div>
                 </div>
                 <hr>
                 <div class="row">
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=19.131712,72.91764&zoom=15&size=800x300" style="width:100%">
+                    <a style="opacity: 1.0;filter: alpha(opacity=100);" href="https://www.google.co.in/maps?q=hotel+9+iitb+bombay&ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.101214132,d.c2E&biw=1366&bih=635&dpr=1&um=1&ie=UTF-8&sa=X&ved=0CAYQ_AUoAWoVChMI-biG0JzFxwIVwwmOCh0oWQqw" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?center=19.131712,72.91764&zoom=15&size=800x300" style="width:100%"></a>
                 </div>
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- New Add -->
