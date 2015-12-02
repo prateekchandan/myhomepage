@@ -75,7 +75,7 @@ body{
 </div>
 <div class="bs-docs-grid">
 <div class="row show-grid">
-	<div id="left" class="col-md-4">
+	<div id="left" class="col-md-3">
 	<div id="levelmessage"></div>
 	<div id="left-well" class="span2 well">
 		<h3 style="color:white">Settings</h3>
@@ -89,10 +89,10 @@ body{
 		<button id="btn2" class="btn btn-primary btn-default" onclick = "emptyboard()">Give your own sudoku</button>
 	</div>
 	</div>
-	<div id="center" class="col-md-4">
+	<div id="center" class="col-md-7">
 		<div id="board"></div>
 	</div>
-	<div id="right" class="col-md-4">
+	<div id="right" class="col-md-2">
 	<div id="right-well" class="span2 well">
 		<h3 style="color:white">Options</h3>
 		<hr>
