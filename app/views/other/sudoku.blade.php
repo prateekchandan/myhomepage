@@ -11,7 +11,11 @@ body{
 	background: url({{URL::asset('view/images/sbak.png')}});
 	 overflow-x: hidden;
 }
-
+@media (min-width: 992px){
+.col-md-3 {
+    width: inherit;
+}
+}
 
 .btn1 {
 	color: black;
@@ -26,6 +30,7 @@ body{
 }
 
 #center{
+	width:475px;
 	overflow: auto;
 	height: 480px;
 	border-radius: 30px;
@@ -38,24 +43,24 @@ body{
 }
 
 #left{
-	padding-left: 100px;
+	padding-left: 20px;
 	padding-top: 50px;
 }
 #right{
-	padding-left: 100px;
+	padding-left: 20px;
 	padding-top: 50px;
 }
 #right-well{
 	border: 1px solid rgba(0,0,0,0.8);
 	background-color: rgba(0,0,0,0.7);
 	box-shadow: 0pt 1px 1px rgba(0, 0, 0, 0.05) inset;
-	width: 300px;
+	width: 200px;
 }
 #left-well{
 	border: 1px solid rgba(0,0,0,0.8);
 	background-color: rgba(0,0,0,0.7);
 	box-shadow: 0pt 1px 1px rgba(0, 0, 0, 0.05) inset;
-	width: 300px;
+	width: 250px;
 }
 
 #message{
@@ -89,7 +94,7 @@ body{
 		<button id="btn2" class="btn btn-primary btn-default" onclick = "emptyboard()">Give your own sudoku</button>
 	</div>
 	</div>
-	<div id="center" class="col-md-7">
+	<div id="center" class="col-md-7	">
 		<div id="board"></div>
 	</div>
 	<div id="right" class="col-md-2">
