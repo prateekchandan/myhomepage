@@ -111,7 +111,7 @@ body{
 </div>
 </div>
 <div class="footer">
-	<br><p style="color:white">By <strong><a href="{{URL::to('/')}}">Prateek Chandan</a></strong></p>
+	<br><p style="color:white">By <strong><a target="_blank" href="{{URL::to('/')}}">Prateek Chandan</a></strong></p>
 </div>
 </body>
 
