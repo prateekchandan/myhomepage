@@ -16,7 +16,7 @@
         Prateek Chandan - Homepage
     </title>
     <!-- Bootstrap core CSS -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet" type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet" type="text/css" />
     <link href="{{URL::asset('view/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{URL::asset('view/style.css')}}" rel="stylesheet" />
     <link rel="shortcut icon" href="{{URL::asset('favicon.ico')}}" type="image/x-icon" />
@@ -46,7 +46,7 @@
     
     @yield('page')
         <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
     <script type="text/javascript" src="{{URL::asset('view/js/script.js')}}">
     </script>
