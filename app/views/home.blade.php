@@ -380,20 +380,7 @@
                                 Worked on various security aspects, created a custom symbol font for passcode authentication, properLDAP Authentication, maintainence of states and logging all student event
                             </li>
                         </ul>
-                        <span class="experience-details">
-                                    <span class="location">
-                                        <i class="fa fa-github fa-lg"></i> 
-                                        <a href="https://github.com/prateekchandan/Arkenstone-quizapp-server" target="_blank">Check Source Code</a>
-                            </span>
-                            <span class="seperator">
-                                        |
-                                    </span>
-                            <span class="link">
-                                        <span class="glyphicon glyphicon-link">
-                                        </span>
-                            <a href="http://bodhitree3.cse.iitb.ac.in:8080/" target="_blank">See Live Site</a>
-                            </span>
-                            </span>
+                        
                     </div>
                 </div>
 
