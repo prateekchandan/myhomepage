@@ -26,6 +26,7 @@
 	            	<li>A server application preferable <b>Apache</b></li>
 	            	<li><a href="http://en.wikipedia.org/wiki/PHP" target=_blank>PHP</a> installed in your machine to handle all your server side requests</li>
 	            	<li><a href="http://www.mysql.com/">MySQL</a> or others to manage your databases</li>
+	            	<li><a href="https://www.phpmyadmin.net/">phpMyAdmin</a> - A web interface to view your database</li>
 	            </ul>
 	        </div>
 	    </div>
@@ -66,15 +67,25 @@
 	            	</li>
 	            	<li>
 	            		<b>Step 4: Configure php with apache</b><br>
-	            		<code>sudo apt-get install libapache2-mod-php5</code>
-	            		<code>sudo a2enmod php5</code><br>
-	            		<code>sudo service apache2 restart</code><br>
+	            		<code>sudo apt-get install libapache2-mod-php5<br>
+	            		sudo a2enmod php5<br>
+	            		sudo service apache2 restart</code><br>
 	            		After running this type <a href="http://localhost">http://localhost</a> in your browser to check if your php file is running 
 	            	</li>
 	            	<li>
 	            		<b>Step 5: Install MySQL</b><br>
 	            		<code>sudo apt-get install mysql-server</code><br>
 	            		This will install MYSQL on your system.This will prompt for root password. Don't forget the password you set here. To check if its properly installed type <code>mysql -u root -p</code> on your terminal and see if it works
+	            	</li>
+	            	<li>
+	            		<b>Step 6: Install phpMyAdmin</b><br>
+	            		<code>sudo apt-get install phpmyadmin</code><br>
+	            		Upon prompt , provide the password of phpmyadmin and mysql.
+	            		Once installation completes paste the following line into the file <i>/etc/apache2/apache2.conf</i><br>
+	            		<code>Include /etc/phpmyadmin/apache.conf</code>
+	            		<br>
+	            		Now restart apache server <br>
+	            		<code>sudo service apache2 restart</code>
 	            	</li>
 	            </ul>
 	        </div>
