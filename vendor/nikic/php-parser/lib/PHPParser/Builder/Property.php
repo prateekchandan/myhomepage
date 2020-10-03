@@ -1,31 +1,41 @@
-<?php
+<?php declare(strict_types=1);
 
-class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
+namespace PhpParser\Builder;
+
+use PhpParser;
+use PhpParser\BuilderHelpers;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\Stmt;
+
+class Property implements PhpParser\Builder
 {
     protected $name;
 
+    protected $flags = 0;
+    protected $default = null;
+    protected $attributes = [];
+
+    /** @var null|Identifier|Name|NullableType */
     protected $type;
-    protected $default;
 
     /**
      * Creates a property builder.
      *
      * @param string $name Name of the property
      */
-    public function __construct($name) {
+    public function __construct(string $name) {
         $this->name = $name;
-
-        $this->type = 0;
-        $this->default = null;
     }
 
     /**
      * Makes the property public.
      *
-     * @return PHPParser_Builder_Property The builder instance (for fluid interface)
+     * @return $this The builder instance (for fluid interface)
      */
     public function makePublic() {
-        $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC);
+        $this->flags = BuilderHelpers::addModifier($this->flags, Stmt\Class_::MODIFIER_PUBLIC);
 
         return $this;
     }
@@ -33,10 +43,10 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
     /**
      * Makes the property protected.
      *
-     * @return PHPParser_Builder_Property The builder instance (for fluid interface)
+     * @return $this The builder instance (for fluid interface)
      */
     public function makeProtected() {
-        $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED);
+        $this->flags = BuilderHelpers::addModifier($this->flags, Stmt\Class_::MODIFIER_PROTECTED);
 
         return $this;
     }
@@ -44,10 +54,10 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
     /**
      * Makes the property private.
      *
-     * @return PHPParser_Builder_Property The builder instance (for fluid interface)
+     * @return $this The builder instance (for fluid interface)
      */
     public function makePrivate() {
-        $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE);
+        $this->flags = BuilderHelpers::addModifier($this->flags, Stmt\Class_::MODIFIER_PRIVATE);
 
         return $this;
     }
@@ -55,10 +65,10 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
     /**
      * Makes the property static.
      *
-     * @return PHPParser_Builder_Property The builder instance (for fluid interface)
+     * @return $this The builder instance (for fluid interface)
      */
     public function makeStatic() {
-        $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_STATIC);
+        $this->flags = BuilderHelpers::addModifier($this->flags, Stmt\Class_::MODIFIER_STATIC);
 
         return $this;
     }
@@ -68,10 +78,38 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @param mixed $value Default value to use
      *
-     * @return PHPParser_Builder_Property The builder instance (for fluid interface)
+     * @return $this The builder instance (for fluid interface)
      */
     public function setDefault($value) {
-        $this->default = $this->normalizeValue($value);
+        $this->default = BuilderHelpers::normalizeValue($value);
+
+        return $this;
+    }
+
+    /**
+     * Sets doc comment for the property.
+     *
+     * @param PhpParser\Comment\Doc|string $docComment Doc comment to set
+     *
+     * @return $this The builder instance (for fluid interface)
+     */
+    public function setDocComment($docComment) {
+        $this->attributes = [
+            'comments' => [BuilderHelpers::normalizeDocComment($docComment)]
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Sets the property type for PHP 7.4+.
+     *
+     * @param string|Name|NullableType|Identifier $type
+     *
+     * @return $this
+     */
+    public function setType($type) {
+        $this->type = BuilderHelpers::normalizeType($type);
 
         return $this;
     }
@@ -79,14 +117,16 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
     /**
      * Returns the built class node.
      *
-     * @return PHPParser_Node_Stmt_Property The built property node
+     * @return Stmt\Property The built property node
      */
-    public function getNode() {
-        return new PHPParser_Node_Stmt_Property(
-            $this->type !== 0 ? $this->type : PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
-            array(
-                new PHPParser_Node_Stmt_PropertyProperty($this->name, $this->default)
-            )
+    public function getNode() : PhpParser\Node {
+        return new Stmt\Property(
+            $this->flags !== 0 ? $this->flags : Stmt\Class_::MODIFIER_PUBLIC,
+            [
+                new Stmt\PropertyProperty($this->name, $this->default)
+            ],
+            $this->attributes,
+            $this->type
         );
     }
 }

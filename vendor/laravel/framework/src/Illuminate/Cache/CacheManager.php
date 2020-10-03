@@ -1,181 +1,398 @@
-<?php namespace Illuminate\Cache;
+<?php
 
-use Illuminate\Support\Manager;
+namespace Illuminate\Cache;
 
-class CacheManager extends Manager {
+use Aws\DynamoDb\DynamoDbClient;
+use Closure;
+use Illuminate\Contracts\Cache\Factory as FactoryContract;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
+use Illuminate\Support\Arr;
+use InvalidArgumentException;
 
-	/**
-	 * Create an instance of the APC cache driver.
-	 *
-	 * @return \Illuminate\Cache\ApcStore
-	 */
-	protected function createApcDriver()
-	{
-		return $this->repository(new ApcStore(new ApcWrapper, $this->getPrefix()));
-	}
+/**
+ * @mixin \Illuminate\Contracts\Cache\Repository
+ */
+class CacheManager implements FactoryContract
+{
+    /**
+     * The application instance.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application
+     */
+    protected $app;
 
-	/**
-	 * Create an instance of the array cache driver.
-	 *
-	 * @return \Illuminate\Cache\ArrayStore
-	 */
-	protected function createArrayDriver()
-	{
-		return $this->repository(new ArrayStore);
-	}
+    /**
+     * The array of resolved cache stores.
+     *
+     * @var array
+     */
+    protected $stores = [];
 
-	/**
-	 * Create an instance of the file cache driver.
-	 *
-	 * @return \Illuminate\Cache\FileStore
-	 */
-	protected function createFileDriver()
-	{
-		$path = $this->app['config']['cache.path'];
+    /**
+     * The registered custom driver creators.
+     *
+     * @var array
+     */
+    protected $customCreators = [];
 
-		return $this->repository(new FileStore($this->app['files'], $path));
-	}
+    /**
+     * Create a new Cache manager instance.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return void
+     */
+    public function __construct($app)
+    {
+        $this->app = $app;
+    }
 
-	/**
-	 * Create an instance of the Memcached cache driver.
-	 *
-	 * @return \Illuminate\Cache\MemcachedStore
-	 */
-	protected function createMemcachedDriver()
-	{
-		$servers = $this->app['config']['cache.memcached'];
+    /**
+     * Get a cache store instance by name, wrapped in a repository.
+     *
+     * @param  string|null  $name
+     * @return \Illuminate\Contracts\Cache\Repository
+     */
+    public function store($name = null)
+    {
+        $name = $name ?: $this->getDefaultDriver();
 
-		$memcached = $this->app['memcached.connector']->connect($servers);
+        return $this->stores[$name] = $this->get($name);
+    }
 
-		return $this->repository(new MemcachedStore($memcached, $this->getPrefix()));
-	}
+    /**
+     * Get a cache driver instance.
+     *
+     * @param  string|null  $driver
+     * @return \Illuminate\Contracts\Cache\Repository
+     */
+    public function driver($driver = null)
+    {
+        return $this->store($driver);
+    }
 
-	/**
-	 * Create an instance of the Null cache driver.
-	 *
-	 * @return \Illuminate\Cache\NullStore
-	 */
-	protected function createNullDriver()
-	{
-		return $this->repository(new NullStore);
-	}
+    /**
+     * Attempt to get the store from the local cache.
+     *
+     * @param  string  $name
+     * @return \Illuminate\Contracts\Cache\Repository
+     */
+    protected function get($name)
+    {
+        return $this->stores[$name] ?? $this->resolve($name);
+    }
 
-	/**
-	 * Create an instance of the WinCache cache driver.
-	 *
-	 * @return \Illuminate\Cache\WinCacheStore
-	 */
-	protected function createWincacheDriver()
-	{
-		return $this->repository(new WinCacheStore($this->getPrefix()));
-	}
+    /**
+     * Resolve the given store.
+     *
+     * @param  string  $name
+     * @return \Illuminate\Contracts\Cache\Repository
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function resolve($name)
+    {
+        $config = $this->getConfig($name);
 
-	/**
-	 * Create an instance of the XCache cache driver.
-	 *
-	 * @return \Illuminate\Cache\WinCacheStore
-	 */
-	protected function createXcacheDriver()
-	{
-		return $this->repository(new XCacheStore($this->getPrefix()));
-	}
+        if (is_null($config)) {
+            throw new InvalidArgumentException("Cache store [{$name}] is not defined.");
+        }
 
-	/**
-	 * Create an instance of the Redis cache driver.
-	 *
-	 * @return \Illuminate\Cache\RedisStore
-	 */
-	protected function createRedisDriver()
-	{
-		$redis = $this->app['redis'];
+        if (isset($this->customCreators[$config['driver']])) {
+            return $this->callCustomCreator($config);
+        } else {
+            $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
 
-		return $this->repository(new RedisStore($redis, $this->getPrefix()));
-	}
+            if (method_exists($this, $driverMethod)) {
+                return $this->{$driverMethod}($config);
+            } else {
+                throw new InvalidArgumentException("Driver [{$config['driver']}] is not supported.");
+            }
+        }
+    }
 
-	/**
-	 * Create an instance of the database cache driver.
-	 *
-	 * @return \Illuminate\Cache\DatabaseStore
-	 */
-	protected function createDatabaseDriver()
-	{
-		$connection = $this->getDatabaseConnection();
+    /**
+     * Call a custom driver creator.
+     *
+     * @param  array  $config
+     * @return mixed
+     */
+    protected function callCustomCreator(array $config)
+    {
+        return $this->customCreators[$config['driver']]($this->app, $config);
+    }
 
-		$encrypter = $this->app['encrypter'];
+    /**
+     * Create an instance of the APC cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createApcDriver(array $config)
+    {
+        $prefix = $this->getPrefix($config);
 
-		// We allow the developer to specify which connection and table should be used
-		// to store the cached items. We also need to grab a prefix in case a table
-		// is being used by multiple applications although this is very unlikely.
-		$table = $this->app['config']['cache.table'];
+        return $this->repository(new ApcStore(new ApcWrapper, $prefix));
+    }
 
-		$prefix = $this->getPrefix();
+    /**
+     * Create an instance of the array cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createArrayDriver(array $config)
+    {
+        return $this->repository(new ArrayStore($config['serialize'] ?? false));
+    }
 
-		return $this->repository(new DatabaseStore($connection, $encrypter, $table, $prefix));
-	}
+    /**
+     * Create an instance of the file cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createFileDriver(array $config)
+    {
+        return $this->repository(new FileStore($this->app['files'], $config['path'], $config['permission'] ?? null));
+    }
 
-	/**
-	 * Get the database connection for the database driver.
-	 *
-	 * @return \Illuminate\Database\Connection
-	 */
-	protected function getDatabaseConnection()
-	{
-		$connection = $this->app['config']['cache.connection'];
+    /**
+     * Create an instance of the Memcached cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createMemcachedDriver(array $config)
+    {
+        $prefix = $this->getPrefix($config);
 
-		return $this->app['db']->connection($connection);
-	}
+        $memcached = $this->app['memcached.connector']->connect(
+            $config['servers'],
+            $config['persistent_id'] ?? null,
+            $config['options'] ?? [],
+            array_filter($config['sasl'] ?? [])
+        );
 
-	/**
-	 * Get the cache "prefix" value.
-	 *
-	 * @return string
-	 */
-	public function getPrefix()
-	{
-		return $this->app['config']['cache.prefix'];
-	}
+        return $this->repository(new MemcachedStore($memcached, $prefix));
+    }
 
-	/**
-	 * Set the cache "prefix" value.
-	 *
-	 * @param  string  $name
-	 * @return void
-	 */
-	public function setPrefix($name)
-	{
-		$this->app['config']['cache.prefix'] = $name;
-	}
+    /**
+     * Create an instance of the Null cache driver.
+     *
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createNullDriver()
+    {
+        return $this->repository(new NullStore);
+    }
 
-	/**
-	 * Create a new cache repository with the given implementation.
-	 *
-	 * @param  \Illuminate\Cache\StoreInterface  $store
-	 * @return \Illuminate\Cache\Repository
-	 */
-	protected function repository(StoreInterface $store)
-	{
-		return new Repository($store);
-	}
+    /**
+     * Create an instance of the Redis cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createRedisDriver(array $config)
+    {
+        $redis = $this->app['redis'];
 
-	/**
-	 * Get the default cache driver name.
-	 *
-	 * @return string
-	 */
-	public function getDefaultDriver()
-	{
-		return $this->app['config']['cache.driver'];
-	}
+        $connection = $config['connection'] ?? 'default';
 
-	/**
-	 * Set the default cache driver name.
-	 *
-	 * @param  string  $name
-	 * @return void
-	 */
-	public function setDefaultDriver($name)
-	{
-		$this->app['config']['cache.driver'] = $name;
-	}
+        return $this->repository(new RedisStore($redis, $this->getPrefix($config), $connection));
+    }
 
+    /**
+     * Create an instance of the database cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createDatabaseDriver(array $config)
+    {
+        $connection = $this->app['db']->connection($config['connection'] ?? null);
+
+        return $this->repository(
+            new DatabaseStore(
+                $connection,
+                $config['table'],
+                $this->getPrefix($config),
+                $config['lock_table'] ?? 'cache_locks',
+                $config['lock_lottery'] ?? [2, 100]
+            )
+        );
+    }
+
+    /**
+     * Create an instance of the DynamoDB cache driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Cache\Repository
+     */
+    protected function createDynamodbDriver(array $config)
+    {
+        $dynamoConfig = [
+            'region' => $config['region'],
+            'version' => 'latest',
+            'endpoint' => $config['endpoint'] ?? null,
+        ];
+
+        if ($config['key'] && $config['secret']) {
+            $dynamoConfig['credentials'] = Arr::only(
+                $config, ['key', 'secret', 'token']
+            );
+        }
+
+        return $this->repository(
+            new DynamoDbStore(
+                new DynamoDbClient($dynamoConfig),
+                $config['table'],
+                $config['attributes']['key'] ?? 'key',
+                $config['attributes']['value'] ?? 'value',
+                $config['attributes']['expiration'] ?? 'expires_at',
+                $this->getPrefix($config)
+            )
+        );
+    }
+
+    /**
+     * Create a new cache repository with the given implementation.
+     *
+     * @param  \Illuminate\Contracts\Cache\Store  $store
+     * @return \Illuminate\Cache\Repository
+     */
+    public function repository(Store $store)
+    {
+        return tap(new Repository($store), function ($repository) {
+            $this->setEventDispatcher($repository);
+        });
+    }
+
+    /**
+     * Set the event dispatcher on the given repository instance.
+     *
+     * @param  \Illuminate\Cache\Repository  $repository
+     * @return void
+     */
+    protected function setEventDispatcher(Repository $repository)
+    {
+        if (! $this->app->bound(DispatcherContract::class)) {
+            return;
+        }
+
+        $repository->setEventDispatcher(
+            $this->app[DispatcherContract::class]
+        );
+    }
+
+    /**
+     * Re-set the event dispatcher on all resolved cache repositories.
+     *
+     * @return void
+     */
+    public function refreshEventDispatcher()
+    {
+        array_map([$this, 'setEventDispatcher'], $this->stores);
+    }
+
+    /**
+     * Get the cache prefix.
+     *
+     * @param  array  $config
+     * @return string
+     */
+    protected function getPrefix(array $config)
+    {
+        return $config['prefix'] ?? $this->app['config']['cache.prefix'];
+    }
+
+    /**
+     * Get the cache connection configuration.
+     *
+     * @param  string  $name
+     * @return array
+     */
+    protected function getConfig($name)
+    {
+        return $this->app['config']["cache.stores.{$name}"];
+    }
+
+    /**
+     * Get the default cache driver name.
+     *
+     * @return string
+     */
+    public function getDefaultDriver()
+    {
+        return $this->app['config']['cache.default'];
+    }
+
+    /**
+     * Set the default cache driver name.
+     *
+     * @param  string  $name
+     * @return void
+     */
+    public function setDefaultDriver($name)
+    {
+        $this->app['config']['cache.default'] = $name;
+    }
+
+    /**
+     * Unset the given driver instances.
+     *
+     * @param  array|string|null  $name
+     * @return $this
+     */
+    public function forgetDriver($name = null)
+    {
+        $name = $name ?? $this->getDefaultDriver();
+
+        foreach ((array) $name as $cacheName) {
+            if (isset($this->stores[$cacheName])) {
+                unset($this->stores[$cacheName]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Disconnect the given driver and remove from local cache.
+     *
+     * @param  string|null  $name
+     * @return void
+     */
+    public function purge($name = null)
+    {
+        $name = $name ?? $this->getDefaultDriver();
+
+        unset($this->stores[$name]);
+    }
+
+    /**
+     * Register a custom driver creator Closure.
+     *
+     * @param  string  $driver
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function extend($driver, Closure $callback)
+    {
+        $this->customCreators[$driver] = $callback->bindTo($this, $this);
+
+        return $this;
+    }
+
+    /**
+     * Dynamically call the default driver instance.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return $this->store()->$method(...$parameters);
+    }
 }

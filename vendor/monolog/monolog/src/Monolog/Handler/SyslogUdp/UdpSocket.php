@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of the Monolog package.
@@ -11,11 +11,20 @@
 
 namespace Monolog\Handler\SyslogUdp;
 
+use Monolog\Utils;
+
 class UdpSocket
 {
-    const DATAGRAM_MAX_LENGTH = 2048;
+    protected const DATAGRAM_MAX_LENGTH = 65023;
 
-    public function __construct($ip, $port = 514)
+    /** @var string */
+    protected $ip;
+    /** @var int */
+    protected $port;
+    /** @var resource|null */
+    protected $socket;
+
+    public function __construct(string $ip, int $port = 514)
     {
         $this->ip = $ip;
         $this->port = $port;
@@ -24,39 +33,29 @@ class UdpSocket
 
     public function write($line, $header = "")
     {
-        $remaining = $line;
-        while (!is_null($remaining)) {
-            list($chunk, $remaining) = $this->splitLineIfNessesary($remaining, $header);
-            $this->send($chunk);
+        $this->send($this->assembleMessage($line, $header));
+    }
+
+    public function close(): void
+    {
+        if (is_resource($this->socket)) {
+            socket_close($this->socket);
+            $this->socket = null;
         }
     }
 
-    public function close()
+    protected function send(string $chunk): void
     {
-        socket_close($this->socket);
-    }
-
-    protected function send($chunk)
-    {
+        if (!is_resource($this->socket)) {
+            throw new \RuntimeException('The UdpSocket to '.$this->ip.':'.$this->port.' has been closed and can not be written to anymore');
+        }
         socket_sendto($this->socket, $chunk, strlen($chunk), $flags = 0, $this->ip, $this->port);
     }
 
-    protected function splitLineIfNessesary($line, $header)
+    protected function assembleMessage(string $line, string $header): string
     {
-        if ($this->shouldSplitLine($line, $header)) {
-            $chunkSize = self::DATAGRAM_MAX_LENGTH - strlen($header);
-            $chunk = $header . substr($line, 0, $chunkSize);
-            $remaining = substr($line, $chunkSize);
-        } else {
-            $chunk = $header . $line;
-            $remaining = null;
-        }
+        $chunkSize = static::DATAGRAM_MAX_LENGTH - strlen($header);
 
-        return array($chunk, $remaining);
-    }
-
-    protected function shouldSplitLine($remaining, $header)
-    {
-        return strlen($header.$remaining) > self::DATAGRAM_MAX_LENGTH;
+        return $header . Utils::substr($line, 0, $chunkSize);
     }
 }

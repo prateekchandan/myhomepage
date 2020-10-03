@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of the Monolog package.
@@ -11,7 +11,10 @@
 
 namespace Monolog\Handler;
 
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Logger;
+use Monolog\Utils;
+use Monolog\Handler\Slack\SlackRecord;
 
 /**
  * Sends notifications through Slack API
@@ -28,60 +31,69 @@ class SlackHandler extends SocketHandler
     private $token;
 
     /**
-     * Slack channel (encoded ID or name)
-     * @var string
+     * Instance of the SlackRecord util class preparing data for Slack API.
+     * @var SlackRecord
      */
-    private $channel;
+    private $slackRecord;
 
     /**
-     * Name of a bot
-     * @var string
+     * @param  string                    $token                  Slack API token
+     * @param  string                    $channel                Slack channel (encoded ID or name)
+     * @param  string|null               $username               Name of a bot
+     * @param  bool                      $useAttachment          Whether the message should be added to Slack as attachment (plain text otherwise)
+     * @param  string|null               $iconEmoji              The emoji name to use (or null)
+     * @param  int                       $level                  The minimum logging level at which this handler will be triggered
+     * @param  bool                      $bubble                 Whether the messages that are handled can bubble up the stack or not
+     * @param  bool                      $useShortAttachment     Whether the the context/extra messages added to Slack as attachments are in a short style
+     * @param  bool                      $includeContextAndExtra Whether the attachment should include context and extra data
+     * @param  array                     $excludeFields          Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
+     * @throws MissingExtensionException If no OpenSSL PHP extension configured
      */
-    private $username;
-
-    /**
-     * Emoji icon name
-     * @var string
-     */
-    private $iconEmoji;
-
-    /**
-     * Whether the message should be added to Slack as attachment (plain text otherwise)
-     * @var bool
-     */
-    private $useAttachment;
-
-    /**
-     * @param string      $token         Slack API token
-     * @param string      $channel       Slack channel (encoded ID or name)
-     * @param string      $username      Name of a bot
-     * @param bool        $useAttachment Whether the message should be added to Slack as attachment (plain text otherwise)
-     * @param string|null $iconEmoji     The emoji name to use (or null)
-     * @param int         $level         The minimum logging level at which this handler will be triggered
-     * @param bool        $bubble        Whether the messages that are handled can bubble up the stack or not
-     */
-    public function __construct($token, $channel, $username = 'Monolog', $useAttachment = true, $iconEmoji = null, $level = Logger::CRITICAL, $bubble = true)
-    {
+    public function __construct(
+        string $token,
+        string $channel,
+        ?string $username = null,
+        bool $useAttachment = true,
+        ?string $iconEmoji = null,
+        $level = Logger::CRITICAL,
+        bool $bubble = true,
+        bool $useShortAttachment = false,
+        bool $includeContextAndExtra = false,
+        array $excludeFields = array()
+    ) {
         if (!extension_loaded('openssl')) {
             throw new MissingExtensionException('The OpenSSL PHP extension is required to use the SlackHandler');
         }
 
         parent::__construct('ssl://slack.com:443', $level, $bubble);
 
+        $this->slackRecord = new SlackRecord(
+            $channel,
+            $username,
+            $useAttachment,
+            $iconEmoji,
+            $useShortAttachment,
+            $includeContextAndExtra,
+            $excludeFields
+        );
+
         $this->token = $token;
-        $this->channel = $channel;
-        $this->username = $username;
-        $this->iconEmoji = trim($iconEmoji, ':');
-        $this->useAttachment = $useAttachment;
+    }
+
+    public function getSlackRecord(): SlackRecord
+    {
+        return $this->slackRecord;
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @param  array  $record
-     * @return string
      */
-    protected function generateDataStream($record)
+    protected function generateDataStream(array $record): string
     {
         $content = $this->buildContent($record);
 
@@ -90,59 +102,30 @@ class SlackHandler extends SocketHandler
 
     /**
      * Builds the body of API call
-     *
-     * @param  array  $record
-     * @return string
      */
-    private function buildContent($record)
+    private function buildContent(array $record): string
     {
-        $dataArray = array(
-            'token' => $this->token,
-            'channel' => $this->channel,
-            'username' => $this->username,
-            'text' => '',
-            'attachments' => array()
-        );
-
-        if ($this->useAttachment) {
-            $dataArray['attachments'] = json_encode(
-                array(
-                    array(
-                        'fallback' => $record['message'],
-                        'color' => $this->getAttachmentColor($record['level']),
-                        'fields' => array(
-                            array(
-                                'title' => 'Message',
-                                'value' => $record['message'],
-                                'short' => false
-                            ),
-                            array(
-                                'title' => 'Level',
-                                'value' => $record['level_name'],
-                                'short' => true
-                            )
-                        )
-                    )
-                )
-            );
-        } else {
-            $dataArray['text'] = $record['message'];
-        }
-
-        if ($this->iconEmoji) {
-            $dataArray['icon_emoji'] = ":{$this->iconEmoji}:";
-        }
+        $dataArray = $this->prepareContentData($record);
 
         return http_build_query($dataArray);
     }
 
+    protected function prepareContentData(array $record): array
+    {
+        $dataArray = $this->slackRecord->getSlackData($record);
+        $dataArray['token'] = $this->token;
+
+        if (!empty($dataArray['attachments'])) {
+            $dataArray['attachments'] = Utils::jsonEncode($dataArray['attachments']);
+        }
+
+        return $dataArray;
+    }
+
     /**
      * Builds the header of the API Call
-     *
-     * @param  string $content
-     * @return string
      */
-    private function buildHeader($content)
+    private function buildHeader(string $content): string
     {
         $header = "POST /api/chat.postMessage HTTP/1.1\r\n";
         $header .= "Host: slack.com\r\n";
@@ -155,33 +138,96 @@ class SlackHandler extends SocketHandler
 
     /**
      * {@inheritdoc}
-     *
-     * @param array $record
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         parent::write($record);
-        $this->closeSocket();
+        $this->finalizeWrite();
     }
 
     /**
-     * Returned a Slack message attachment color associated with
-     * provided level.
+     * Finalizes the request by reading some bytes and then closing the socket
      *
-     * @param  int    $level
-     * @return string
+     * If we do not read some but close the socket too early, slack sometimes
+     * drops the request entirely.
      */
-    protected function getAttachmentColor($level)
+    protected function finalizeWrite(): void
     {
-        switch (true) {
-            case $level >= Logger::ERROR:
-                return 'danger';
-            case $level >= Logger::WARNING:
-                return 'warning';
-            case $level >= Logger::INFO:
-                return 'good';
-            default:
-                return '#e3e4e6';
+        $res = $this->getResource();
+        if (is_resource($res)) {
+            @fread($res, 2048);
         }
+        $this->closeSocket();
+    }
+
+    public function setFormatter(FormatterInterface $formatter): HandlerInterface
+    {
+        parent::setFormatter($formatter);
+        $this->slackRecord->setFormatter($formatter);
+
+        return $this;
+    }
+
+    public function getFormatter(): FormatterInterface
+    {
+        $formatter = parent::getFormatter();
+        $this->slackRecord->setFormatter($formatter);
+
+        return $formatter;
+    }
+
+    /**
+     * Channel used by the bot when posting
+     */
+    public function setChannel(string $channel): self
+    {
+        $this->slackRecord->setChannel($channel);
+
+        return $this;
+    }
+
+    /**
+     * Username used by the bot when posting
+     */
+    public function setUsername(string $username): self
+    {
+        $this->slackRecord->setUsername($username);
+
+        return $this;
+    }
+
+    public function useAttachment(bool $useAttachment): self
+    {
+        $this->slackRecord->useAttachment($useAttachment);
+
+        return $this;
+    }
+
+    public function setIconEmoji(string $iconEmoji): self
+    {
+        $this->slackRecord->setUserIcon($iconEmoji);
+
+        return $this;
+    }
+
+    public function useShortAttachment(bool $useShortAttachment): self
+    {
+        $this->slackRecord->useShortAttachment($useShortAttachment);
+
+        return $this;
+    }
+
+    public function includeContextAndExtra(bool $includeContextAndExtra): self
+    {
+        $this->slackRecord->includeContextAndExtra($includeContextAndExtra);
+
+        return $this;
+    }
+
+    public function excludeFields(array $excludeFields): self
+    {
+        $this->slackRecord->excludeFields($excludeFields);
+
+        return $this;
     }
 }
